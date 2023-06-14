@@ -1,8 +1,6 @@
 #该文件用于产生测试用的随机关键词和随机文件
 from random_words import RandomWords
 import random
-import numpy as np
-import os
 
 def Keywords_gen(f_number, k_number):
     words = []
