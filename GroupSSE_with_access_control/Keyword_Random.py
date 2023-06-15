@@ -2,10 +2,10 @@
 from random_words import RandomWords
 import random
 
-def Keywords_gen(f_number, k_number):
+def Keywords_gen(f_number, k_number, total_keyword_number):
     words = []
     new_words = []
-    for i in range(200):
+    for i in range(total_keyword_number):
         while True:
             r = RandomWords()
             rw = r.random_words()
@@ -13,6 +13,8 @@ def Keywords_gen(f_number, k_number):
                 continue
             words.append(rw[0])
             break
+            if i % 1000 == 0:
+                print("Another 1000 keywords generated!\n")
 
     #file = open('./RandomTest/Keywords.txt', 'w')
     for word in words:
@@ -35,4 +37,5 @@ def Keywords_gen(f_number, k_number):
 if __name__ == '__main__':
     m = 10#文件个数
     n = 10#关键词个数
-    Keywords_gen(m, n)
+    t = 2000#关键词总数
+    Keywords_gen(m, n, t)

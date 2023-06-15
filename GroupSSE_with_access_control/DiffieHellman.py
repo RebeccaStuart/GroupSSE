@@ -40,11 +40,8 @@ class DiffieHellman(object):
 	a 540+ bit exponent.
 	"""
 
-	def __init__(self, generator=2, group=17, keyLength=540):
-		"""
-		Generate the public and private keys.
-		"""
-
+	def __init__(self, generator=2, group=17, keyLength=540):#生成公私钥
+		
 		dsa_gen = generate_parameters(2048, backend=default_backend())
 
 		dsa_g_n = dsa_gen.parameter_numbers()
@@ -52,10 +49,7 @@ class DiffieHellman(object):
 		self.prime_p = dsa_g_n.p
 		self.generator = dsa_g_n.g
 
-	def genRandom(self, k, msg):
-		"""
-		Generate a random number with the msg
-		"""
+	def genRandom(self, k, msg):#针对消息生成随机数，其实就是哈希函数
 
 		_rand = int.from_bytes(prf_512(k, msg), byteorder="big") % self.prime
 		return _rand
@@ -63,14 +57,10 @@ class DiffieHellman(object):
 	def genPrivateKey(self, k, msg):
 		return self.genRandom(k, msg)
 
-	def genPublicKey(self, privateKey):
+	def genPublicKey(self, privateKey):#根据私钥用指数运算得到对应的公钥
 		return pow(self.generator, privateKey, self.prime_p)
 
-	def genSecret(self, privateKey, otherKey):
-		"""
-		Check to make sure the public key is valid, then combine it with the
-		private key to generate a shared secret.
-		"""
+	def genSecret(self, privateKey, otherKey):#在密文上做指数运算（参考RSA形式）
 
 		sharedSecret = pow(otherKey, privateKey, self.prime_p)
 		return sharedSecret
