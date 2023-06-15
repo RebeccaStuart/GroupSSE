@@ -14,10 +14,10 @@ import keys
 
 
 class BloomFilter:
-    def __init__(self, capacity, functions):#capacity表示bloom filter容量，functions表示哈希函数的个数
+    def __init__(self, capacity, f_number):#capacity表示bloom filter容量，f_number表示哈希函数的个数
         self.capacity = capacity
         self.bit_array = [0 for i in range(self.capacity)]
-        self.counts = functions
+        self.counts = f_number
 
     def _handle_position(self, element):#获取哈希结果和位置
         position_list = []
@@ -60,7 +60,7 @@ def shve_result_trans(shve_result):#用于将SHVE解密的结果转换为可计�
     return int(result[0]), int(result[1])
 
 
-class modified_SHVE:
+class modified_SHVE:#modified SHVE算法，相比原SHVE算法将加密和keygen函数做了功能上的调换
     def __init__(self):
         self.msk = keys.msk
         self.ddh = DH.DiffieHellman()
